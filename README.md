@@ -16,7 +16,10 @@ Configuration
 * Step-1: Make a .env file with your API Keys
 * Step-2: Make a last_ids.json file like this:
 ```
-{"last_mention_id": 0, "last_home_id": 0}
+{
+  "last_mention_id": 0,
+  "last_home_id": 0
+}
 ```
 
 Usage
