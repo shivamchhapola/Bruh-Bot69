@@ -29,7 +29,7 @@ BEARER_TOKEN = "Your Bearer token"
 
 ## How to run
 
-First configure bot for your own use then make sure you have all the libraries which are used in this bot.
+After configuration make sure you have all the libraries which are used to run this bot properly.
 - [Tweepy](https://www.tweepy.org/)
 - [Json](https://www.json.org/)
 - [Time](https://docs.python.org/3/library/time.html)
