@@ -3,6 +3,11 @@ import tweepy
 import os
 import json
 import requests
+
+import get_reply
+
+from file_operations import *
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,23 +15,6 @@ auth = tweepy.OAuthHandler(os.getenv('API_KEY'), os.getenv('API_KEY_SECRET'))
 auth.set_access_token(os.getenv('ACCESS_TOKEN'), os.getenv('ACCESS_SECRET'))
 
 API = tweepy.API(auth)
-
-
-def save_last_id(last_key, last_id, file_name):
-    last_file = open(file_name, 'r')
-    json_obj = json.load(last_file)
-    last_file.close()
-    json_obj[last_key] = last_id
-    last_file = open(file_name, 'w')
-    json.dump(json_obj, last_file)
-    last_file.close()
-
-
-def retrive_last_id(last_key, file_name):
-    last_file = open(file_name, 'r')
-    last_id = int(json.load(last_file)[last_key])
-    last_file.close()
-    return last_id
 
 
 def reply_mentions():
@@ -41,7 +29,7 @@ def reply_mentions():
     for mention in mentions:
         save_last_id("last_mention_id", mention.id, "last_ids.json")
         if "bruh" in mention.text.lower():
-            API.update_status(get_insult,
+            API.update_status(get_reply.get_random_insult(),
                               in_reply_to_status_id=mention.id,
                               auto_populate_reply_metadata=True)
             print("Replied to " + mention.user.screen_name)
@@ -59,16 +47,10 @@ def reply_home():
     for homestatus in homestatuses:
         if homestatus.user.screen_name != "bruh_bot_69":
             save_last_id("last_home_id", homestatus.id, "last_ids.json")
-            API.update_status(get_insult(),
+            API.update_status(get_reply.get_random_insult(),
                               in_reply_to_status_id=homestatus.id,
                               auto_populate_reply_metadata=True)
             print("Replied to " + homestatus.user.screen_name)
-
-
-def get_insult():
-    data = requests.get(
-        url='https://evilinsult.com/generate_insult.php?lang=en&type=json').json()
-    return data['insult']
 
 
 while True:
