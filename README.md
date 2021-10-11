@@ -35,4 +35,5 @@ If you have all the libraries then run **main.py** file
 Cat Image
 =========
 Here's a pic of a cat
+<br/>
 ![I love cats](https://st2.depositphotos.com/4684319/7048/i/600/depositphotos_70486253-stock-photo-smiling-cat-cats.jpg)
