@@ -1,0 +1,77 @@
+import time
+import tweepy
+import os
+import json
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+auth = tweepy.OAuthHandler(os.getenv('API_KEY'), os.getenv('API_KEY_SECRET'))
+auth.set_access_token(os.getenv('ACCESS_TOKEN'), os.getenv('ACCESS_SECRET'))
+
+API = tweepy.API(auth)
+
+
+def save_last_id(last_key, last_id, file_name):
+    last_file = open(file_name, 'r')
+    json_obj = json.load(last_file)
+    last_file.close()
+    json_obj[last_key] = last_id
+    last_file = open(file_name, 'w')
+    json.dump(json_obj, last_file)
+    last_file.close()
+
+
+def retrive_last_id(last_key, file_name):
+    last_file = open(file_name, 'r')
+    last_id = int(json.load(last_file)[last_key])
+    last_file.close()
+    return last_id
+
+
+def reply_mentions():
+    last_id = retrive_last_id("last_mention_id", "last_ids.json")
+    if (last_id == 0):
+        mentions = API.mentions_timeline()
+        mentions.reverse()
+    else:
+        mentions = API.mentions_timeline(
+            since_id=last_id, exclude_replies=True)
+        mentions.reverse()
+    for mention in mentions:
+        save_last_id("last_mention_id", mention.id, "last_ids.json")
+        if "bruh" in mention.text.lower():
+            API.update_status(get_insult,
+                              in_reply_to_status_id=mention.id,
+                              auto_populate_reply_metadata=True)
+            print("Replied to " + mention.user.screen_name)
+
+
+def reply_home():
+    last_id = retrive_last_id("last_home_id", "last_ids.json")
+    if (last_id == 0):
+        homestatuses = API.home_timeline()
+        homestatuses.reverse()
+    else:
+        homestatuses = API.home_timeline(
+            since_id=last_id, exclude_replies=True)
+        homestatuses.reverse()
+    for homestatus in homestatuses:
+        if homestatus.user.screen_name != "bruh_bot_69":
+            save_last_id("last_home_id", homestatus.id, "last_ids.json")
+            API.update_status(get_insult(),
+                              in_reply_to_status_id=homestatus.id,
+                              auto_populate_reply_metadata=True)
+            print("Replied to " + homestatus.user.screen_name)
+
+
+def get_insult():
+    data = requests.get(
+        url='https://evilinsult.com/generate_insult.php?lang=en&type=json').json()
+    return data['insult']
+
+
+while True:
+    reply_home()
+    reply_mentions()
+    time.sleep(69)
