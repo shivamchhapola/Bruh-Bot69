@@ -1,16 +1,16 @@
-Bruh Bot for Twitter
+# Bruh Bot for Twitter
 =======================
 
 It currently replies with insults using evil insults api to home timeline and mentions timeline.
 Working to add Sentiment analysis to reply with compliments, motivation and random facts.
 
-Requirements
+## Requirements
 ============
 
 * Python3
 * Twitter API Keys
 
-Configuration
+## Configuration
 ============
 
 * Step-1: Make a .env file with your API Keys
@@ -22,7 +22,7 @@ Configuration
 }
 ```
 
-Usage
+## Usage
 =====
 
 First of all make sure you have all the libraries which are used to make this bot.
@@ -35,7 +35,7 @@ First of all make sure you have all the libraries which are used to make this bo
 
 If you have all the libraries then run **main.py** file
 
-Cat Image
+## Cat Image
 =========
 Here's a pic of a cat
 <br/>
