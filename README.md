@@ -1,8 +1,8 @@
-# Bruh Bot Insult replier for Twitter
+# Bruh Bot for Twitter
 
 It currently replies with insults using evil insults api to home timeline and mentions timeline.
 Working to add Sentiment analysis to reply with compliments, motivation and random facts.
-<br/>
+<br/> </br>
 [Bruh Bot 69 on Twitter](https://www.twitter.com/bruh_bot_69)
 
 ## Requirements
