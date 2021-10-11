@@ -12,7 +12,14 @@ Working to add Sentiment analysis to reply with compliments, motivation and rand
 
 
 * Step-1: Make a .env file with your API Keys
-* Step-2: Make a last_ids.json file like this:
+```
+API_KEY = "Your API key here"
+API_KEY_SECRET = "Your API key secret here"
+ACCESS_TOKEN = "Your Access token"
+ACCESS_SECRET = "Your Access token secret"
+BEARER_TOKEN = "Your Bearer token"
+```
+* Step-2: Make a last_ids.json file to store tweet ids
 ```
 {
   "last_mention_id": 0,
@@ -20,10 +27,9 @@ Working to add Sentiment analysis to reply with compliments, motivation and rand
 }
 ```
 
-## Usage
+## How to run
 
-
-First of all make sure you have all the libraries which are used to make this bot.
+First configure bot for your own use then make sure you have all the libraries which are used in this bot.
 - [Tweepy](https://www.tweepy.org/)
 - [Json](https://www.json.org/)
 - [Time](https://docs.python.org/3/library/time.html)
